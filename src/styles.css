@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Tailwind CSS - temporarily disabled due to compatibility issues with Angular 20 */
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* PrimeNG Theme and Icons - paths updated for v20+ */
+/* @import "primeng/resources/themes/mira/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css"; */
+
+/* AG-Grid Theme */
+@import "ag-grid-community/styles/ag-grid.css";
+@import "ag-grid-community/styles/ag-theme-quartz.css";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
