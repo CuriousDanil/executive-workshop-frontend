@@ -14,21 +14,7 @@
     "cypress:run": "cypress run",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
     "prepare": "husky"
-  },
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "overrides": [
-      {
-        "files": "*.html",
-        "options": {
-          "parser": "angular"
-        }
-      }
-    ]
   },
   "private": true,
   "dependencies": {
@@ -67,8 +53,6 @@
     "angular-eslint": "20.3.0",
     "cypress": "15.2.0",
     "eslint": "^9.35.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
     "husky": "^9.1.7",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
@@ -77,7 +61,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.5.6",
-    "prettier": "^3.6.2",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.40.0"
   }

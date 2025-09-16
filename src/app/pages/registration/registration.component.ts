@@ -276,7 +276,7 @@ export class RegistrationComponent implements OnDestroy {
       en: {
         back: 'Back',
         createAccount: 'Create Account',
-        joinWorkshop: "Join Executive's Workshop and transform your leadership skills",
+        joinWorkshop: 'Join Executive\'s Workshop and transform your leadership skills',
         personalInfo: 'Personal Information',
         firstName: 'First Name',
         lastName: 'Last Name',
@@ -299,7 +299,7 @@ export class RegistrationComponent implements OnDestroy {
         expectations: 'What are your expectations?',
         motivationPlaceholder: 'Tell us what drives you to improve your leadership skills...',
         expectationsPlaceholder: 'What do you hope to achieve from this workshop?',
-        registrationSuccess: "Registration successful! Welcome to Executive's Workshop.",
+        registrationSuccess: 'Registration successful! Welcome to Executive\'s Workshop.',
         draftLoaded: 'Draft loaded from previous session',
         draftSaved: 'Draft saved automatically',
         autoSaveEnabled: 'Auto-save enabled - your progress is saved automatically',

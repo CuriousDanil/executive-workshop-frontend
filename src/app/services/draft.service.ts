@@ -29,7 +29,7 @@ export class DraftService {
    */
   startAutoSave(formGroup: FormGroup, key: string): void {
     // Subscribe to form changes with debounce
-    formGroup.valueChanges.pipe(debounceTime(this.DEBOUNCE_TIME)).subscribe((value) => {
+    formGroup.valueChanges.pipe(debounceTime(this.DEBOUNCE_TIME)).subscribe(value => {
       this.saveDraft(key, value);
     });
 
@@ -129,7 +129,7 @@ export class DraftService {
     }
 
     // Remove all draft keys
-    keysToRemove.forEach((key) => sessionStorage.removeItem(key));
+    keysToRemove.forEach(key => sessionStorage.removeItem(key));
   }
 
   /**

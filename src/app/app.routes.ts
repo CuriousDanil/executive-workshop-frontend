@@ -9,6 +9,6 @@ export const routes: Routes = [
   {
     path: 'registration',
     loadComponent: () =>
-      import('./pages/registration/registration.component').then((m) => m.RegistrationComponent),
+      import('./pages/registration/registration.component').then(m => m.RegistrationComponent),
   },
 ];

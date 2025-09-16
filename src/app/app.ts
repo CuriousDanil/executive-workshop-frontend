@@ -141,7 +141,7 @@ export class App implements OnInit {
 
     // Listen to route changes
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
+      .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.currentUrl.set(event.urlAfterRedirects);
       });
@@ -161,7 +161,7 @@ export class App implements OnInit {
       getStarted: 'Get Started',
       learnMore: 'Learn More',
       selectLanguage: 'Select Language',
-      whyChooseUs: "Why Choose Executive's Workshop?",
+      whyChooseUs: 'Why Choose Executive\'s Workshop?',
       solutions: 'Solutions',
       services: 'Services',
       industries: 'Industries',
@@ -374,7 +374,7 @@ export class App implements OnInit {
   protected getBrandName(): string {
     const currentLang = this.languageService.language();
     const brandNames = {
-      en: "Executive's Workshop",
+      en: 'Executive\'s Workshop',
       ru: 'Мастерская Директора',
       zh: '高管工作坊',
     };

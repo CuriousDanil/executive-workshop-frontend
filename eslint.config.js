@@ -2,8 +2,6 @@
 const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
-const prettier = require('eslint-config-prettier');
-const prettierPlugin = require('eslint-plugin-prettier');
 
 module.exports = tseslint.config(
   {
@@ -13,12 +11,8 @@ module.exports = tseslint.config(
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
-      prettier,
     ],
     processor: angular.processInlineTemplates,
-    plugins: {
-      prettier: prettierPlugin,
-    },
     rules: {
       '@angular-eslint/directive-selector': [
         'error',
@@ -36,15 +30,12 @@ module.exports = tseslint.config(
           style: 'kebab-case',
         },
       ],
-      // Prettier formatting rules
-      'prettier/prettier': [
-        'error',
-        {
-          printWidth: 100,
-          singleQuote: true,
-          trailingComma: 'es5',
-        },
-      ],
+      // ESLint formatting rules (replaces Prettier)
+      'indent': ['error', 2],
+      'quotes': ['error', 'single'],
+      'semi': ['error', 'always'],
+      'comma-dangle': ['error', 'always-multiline'],
+      'max-len': ['error', { 'code': 120, 'ignoreStrings': true, 'ignoreTemplateLiterals': true }],
     },
   },
   {
