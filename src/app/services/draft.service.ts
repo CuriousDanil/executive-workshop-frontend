@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 
@@ -18,6 +19,8 @@ interface DraftData {
 export class DraftService {
   private readonly STORAGE_PREFIX = 'draft_';
   private readonly DEBOUNCE_TIME = 500; // 500ms debounce
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
 
   /**
    * Start auto-saving form changes to SessionStorage
@@ -40,6 +43,8 @@ export class DraftService {
    * @param data - Form data to save
    */
   saveDraft(key: string, data: unknown): void {
+    if (!this.isBrowser) return;
+
     try {
       const storageKey = this.STORAGE_PREFIX + key;
       const draftData = {
@@ -60,6 +65,8 @@ export class DraftService {
    * @returns The loaded draft data or null if not found
    */
   loadDraft(key: string, formGroup?: FormGroup): unknown {
+    if (!this.isBrowser) return null;
+
     try {
       const storageKey = this.STORAGE_PREFIX + key;
       const draftJson = sessionStorage.getItem(storageKey);
@@ -88,6 +95,8 @@ export class DraftService {
    * @returns true if draft exists, false otherwise
    */
   hasDraft(key: string): boolean {
+    if (!this.isBrowser) return false;
+
     const storageKey = this.STORAGE_PREFIX + key;
     return sessionStorage.getItem(storageKey) !== null;
   }
@@ -97,6 +106,8 @@ export class DraftService {
    * @param key - Unique identifier for the draft to remove
    */
   removeDraft(key: string): void {
+    if (!this.isBrowser) return;
+
     const storageKey = this.STORAGE_PREFIX + key;
     sessionStorage.removeItem(storageKey);
   }
@@ -105,6 +116,8 @@ export class DraftService {
    * Clear all drafts from SessionStorage
    */
   clearAllDrafts(): void {
+    if (!this.isBrowser) return;
+
     const keysToRemove = [];
 
     // Find all keys with our prefix
