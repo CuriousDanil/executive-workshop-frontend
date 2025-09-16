@@ -28,7 +28,7 @@ describe('App', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.hero-title')?.textContent).toContain(
-      'Transform Your Business Operations'
+      'Transform Your Business Operations',
     );
   });
 
