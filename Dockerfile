@@ -10,12 +10,10 @@ RUN npm run build --configuration=production
 FROM node:20-alpine
 WORKDIR /app
 
-# Copy built application
+# Copy built application and all dependencies
 COPY --from=build /app/dist/executive-workshop-frontend ./dist
+COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package*.json ./
-
-# Install only production dependencies for runtime
-RUN npm ci --only=production && npm cache clean --force
 
 # Set the port to 3000 to match your nginx proxy
 ENV PORT=3000
