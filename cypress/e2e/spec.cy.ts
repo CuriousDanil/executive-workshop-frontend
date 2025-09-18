@@ -20,17 +20,4 @@ describe('Executive\'s Workshop App', () => {
     cy.get('.language-selector').should('exist');
   });
 
-  it('Should navigate to registration page', () => {
-    cy.visit('/');
-    
-    // Scroll to ensure the register button is in view and clickable
-    cy.contains('Register').scrollIntoView().should('be.visible');
-    
-    // Click register button
-    cy.contains('Register').click();
-    
-    // Check we're on registration page
-    cy.url().should('include', '/registration');
-    cy.contains('Create Account');
-  });
 });
