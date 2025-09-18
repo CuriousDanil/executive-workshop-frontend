@@ -19,6 +19,7 @@ You are assisting in an Angular-based frontend project for business management. 
 - Other: @angular/pwa, @auth0/auth0-angular (if auth), @sentry/angular (if monitoring), GitHub Actions for CI/CD.
 
 ### Code Practices
+- Always keep the E2E tests up to date.
 - Generate comments only where code doesn't document itself (e.g., complex logic, non-obvious decisions) – keep them concise and JSDoc-style.
 - Ensure i18n: Wrap all strings in $localize; handle plurals/genders.
 - Test coverage: Write unit tests for services/components, E2E for flows.

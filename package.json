@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadless --code-coverage",
     "serve:ssr:executive-workshop-frontend": "node dist/executive-workshop-frontend/server/server.mjs",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",

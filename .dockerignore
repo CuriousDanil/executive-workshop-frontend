@@ -1,0 +1,15 @@
+node_modules
+dist
+coverage
+.git
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+.angular
+.vscode
+.cursor
+*.log
+cypress/videos
+cypress/screenshots
+
