@@ -210,7 +210,8 @@ jobs:
             docker run -d \
               --name executive-workshop-frontend \
               --restart unless-stopped \
-              -p 3000:80 \
+              -p 3000:3000 \
+              -e NODE_ENV=production \
               ${{ secrets.DOCKER_USERNAME }}/executive-workshop-frontend:latest
             
             # Clean up old images
