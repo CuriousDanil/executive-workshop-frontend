@@ -1,11 +1,12 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { App } from './app';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App],
+      imports: [App, NoopAnimationsModule],
       providers: [provideZonelessChangeDetection()],
     }).compileComponents();
   });
@@ -16,70 +17,127 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render brand name in navigation', () => {
+  it('should render toolbar with correct title', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.brand-name')?.textContent).toContain('Executive\'s Workshop');
+    expect(compiled.querySelector('.toolbar-title')?.textContent).toContain('мастерская директора');
   });
 
-  it('should render hero title', () => {
+  it('should have sidenav with navigation items', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.hero-title')?.textContent).toContain(
-      'Transform Your Business Operations',
-    );
+    
+    // Check sidenav exists
+    expect(compiled.querySelector('mat-sidenav')).toBeTruthy();
+    
+    // Check navigation items
+    const navItems = compiled.querySelectorAll('mat-nav-list a[mat-list-item]');
+    expect(navItems.length).toBe(3);
+    
+    // Check specific navigation text (icon + text are concatenated)
+    const navTexts = Array.from(navItems).map(item => item.textContent?.trim());
+    expect(navTexts[0]).toContain('Представления');
+    expect(navTexts[1]).toContain('Атрибуты');
+    expect(navTexts[2]).toContain('Рабочий стол');
   });
 
-  it('should have navigation menu items', () => {
+  it('should have organization selector in toolbar', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const menuItems = compiled.querySelectorAll('.nav-link');
-    expect(menuItems.length).toBeGreaterThan(0);
+    
+    // Check organization selector exists
+    expect(compiled.querySelector('.organization-select')).toBeTruthy();
+    expect(compiled.querySelector('mat-select')).toBeTruthy();
+    expect(compiled.querySelector('mat-label')?.textContent).toContain('Организация');
   });
 
-  it('should have login and register buttons with localized text', () => {
+  it('should display Views section by default', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const loginBtn = compiled.querySelector('.btn-login');
-    const registerBtn = compiled.querySelector('.btn-signup');
-    expect(loginBtn).toBeTruthy();
-    expect(registerBtn).toBeTruthy();
-    expect(loginBtn?.textContent?.trim()).toBe('Login');
-    expect(registerBtn?.textContent?.trim()).toBe('Register');
+    
+    // Check default section
+    expect(compiled.querySelector('.section-content h2')?.textContent).toContain('Представления');
+    expect(compiled.querySelector('mat-grid-list')).toBeTruthy();
   });
 
-  it('should have language selector with 3 language options', () => {
+  it('should have correct number of function tiles', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const languageSelector = compiled.querySelector('.language-selector');
-    const languageOptions = compiled.querySelectorAll('.language-selector option');
-    expect(languageSelector).toBeTruthy();
-    expect(languageOptions.length).toBe(3);
-    expect(languageOptions[0].textContent).toContain('English');
-    expect(languageOptions[1].textContent).toContain('Русский');
-    expect(languageOptions[2].textContent).toContain('中文');
+    
+    // Check grid tiles
+    const tiles = compiled.querySelectorAll('mat-grid-tile');
+    expect(tiles.length).toBe(14);
+    
+    // Check first tile content
+    expect(tiles[0]?.textContent?.trim()).toBe('РЕЕСТРОМ');
   });
 
-  it('should have feature cards', () => {
+  it('should have two organizations in selector', () => {
     const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    const featureCards = compiled.querySelectorAll('.feature-card');
-    expect(featureCards.length).toBe(6);
+    const app = fixture.componentInstance;
+    
+    // Check organizations signal
+    expect(app['organizations']().length).toBe(2);
+    expect(app['organizations']()[0].name).toBe('организация 1');
+    expect(app['organizations']()[1].name).toBe('организация 2');
   });
 
-  it('should have primary and secondary action buttons with localized text', () => {
+  it('should switch sections when navigation is clicked', () => {
+    const fixture = TestBed.createComponent(App);
+    const app = fixture.componentInstance;
+    
+    // Initially should be on views
+    expect(app['activeSection']()).toBe('views');
+    
+    // Switch to attributes
+    app['setActiveSection']('attributes');
+    fixture.detectChanges();
+    expect(app['activeSection']()).toBe('attributes');
+    
+    // Switch to workspace
+    app['setActiveSection']('workspace');
+    fixture.detectChanges();
+    expect(app['activeSection']()).toBe('workspace');
+  });
+
+  it('should select organization correctly', () => {
+    const fixture = TestBed.createComponent(App);
+    const app = fixture.componentInstance;
+    
+    // Initially should be organization 1
+    expect(app['selectedOrganizationId']()).toBe(1);
+    expect(app['selectedOrganization']().name).toBe('организация 1');
+    
+    // Switch to organization 2
+    app['selectOrganization'](2);
+    fixture.detectChanges();
+    expect(app['selectedOrganizationId']()).toBe(2);
+    expect(app['selectedOrganization']().name).toBe('организация 2');
+  });
+
+  it('should have menu toggle button', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const primaryBtn = compiled.querySelector('.btn-primary');
-    const secondaryBtn = compiled.querySelector('.btn-secondary');
-    expect(primaryBtn?.textContent?.trim()).toBe('Get Started');
-    expect(secondaryBtn?.textContent?.trim()).toBe('Learn More');
+    
+    expect(compiled.querySelector('.menu-button')).toBeTruthy();
+    expect(compiled.querySelector('.menu-button mat-icon')?.textContent?.trim()).toBe('menu');
+  });
+
+  it('should have proper CSS classes for styling', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    
+    // Check main layout classes
+    expect(compiled.querySelector('.app-container')).toBeTruthy();
+    expect(compiled.querySelector('.sidenav-container')).toBeTruthy();
+    expect(compiled.querySelector('.content')).toBeTruthy();
+    expect(compiled.querySelector('.section-content')).toBeTruthy();
   });
 });
